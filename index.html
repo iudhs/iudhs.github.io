@@ -10,7 +10,7 @@
     <input id=message type=text placeholder=hi>
     <div id=messages></div>
     <style>
-      #messages, #name, #message {
+      #messages {
         height:300px;
         width:300px;
         border:5px solid black;
@@ -20,7 +20,7 @@
     </style>
     <script>var myDataRef = new Firebase('https://zss4kuv3y20.firebaseio-demo.com/');</script>
     <script>myDataRef.on('child_added',g(myDataRef));</script>
-    <script>$('#message-in').keypress(function on_key_press(e) {
+    <script>$('#message').keypress(function on_key_press(e) {
       if (e.keyCode == 13) {
         var name = $('#name').val();
         var text = $('#message').val();
