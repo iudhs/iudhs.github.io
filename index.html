@@ -20,7 +20,14 @@
     </style>
     <script>
       var myDataRef = new Firebase('https://zss4kuv3y20.firebaseio-demo.com/');
-      myDataRef.on('child_added',g(myDataRef));
+      myDataRef.on('child_added', function myDataRef_on_child_added(snapshot) {
+        var message = snapshot.val();
+        return displayChatMessage(message.name, message.text, myDataRef);
+        function displayChatMessage(name, text, myDataRef) {
+          $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messages'));
+          $('#messages')[0].scrollTop = $('#messages')[0].scrollHeight;
+        };
+      });
       $('#message').keypress(function on_key_press(e) {
         if (e.keyCode == 13) {
           var name = $('#name').val();
@@ -29,16 +36,6 @@
           $('#message').val('');
         }
       });
-      function g(myDataRef) {
-        return function f(snapshot) {
-          var message = snapshot.val();
-          return displayChatMessage(message.name, message.text, myDataRef);
-        };
-        function displayChatMessage(name, text, myDataRef) {
-          $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messages'));
-          $('#messages')[0].scrollTop = $('#messages')[0].scrollHeight;
-        };
-      }
     </script>
   </body>
 </html>
